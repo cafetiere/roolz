@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+
 require 'r00lz/version'
+require 'erb'
 
 module R00lz
   class App
@@ -7,8 +9,9 @@ module R00lz
       kl, act = cont_and_act(env)
       text = kl.new(env).send(act)
 
-      [ 200,
-        { 'Content-Type' => 'text/html'},
+      [
+        200,
+        { 'Content-Type' => 'text/html' },
         [text]
       ]
     end
@@ -45,6 +48,12 @@ module R00lz
 
     def initialize(env)
       @env = env
+    end
+
+    def render(name, b = binding())
+      template = "app/views/#{name}.html.erb"
+      e = ERB.new(File.read template)
+      e.result(b)
     end
   end
 end
