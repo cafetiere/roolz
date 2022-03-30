@@ -18,20 +18,18 @@ module R00lz
 
     def cont_and_act(env)
       _, con, act, after = env["PATH_INFO"].split('/', 4)
-      con = con.capitalize + "Controller"
-      # Using the controller class is defined as a constant
-      # therfore we can just grab it out of the object and initalise it later
+      con = "#{con.capitalize}Controller"
+      # Using the controller class is defined as a constant in the Object
+      # therefore we can just grab it out of the object and initialise it later
       [Object.const_get(con), act]
     end
   end
 
-  #used to conver class names to snake case to require files for autorequire
+  # used to convert class names to snake case to require files for auto require
   def self.to_underscore(s)
-    s.gsub(
-      /([A-Z]+)([A-Z][a-z])/,
-      '\1_\2').gsub(
-      /([a-z\d])([A-Z])/,
-      '\1_\2').downcase
+    s.gsub(/([A-Z]+)([A-Z][a-z])/, '\1_\2')
+     .gsub(/([a-z\d])([A-Z])/, '\1_\2')
+     .downcase
   end
 
   # used for auto require
@@ -50,9 +48,9 @@ module R00lz
       @env = env
     end
 
-    def render(name, b = binding())
+    def render(name, b = binding)
       template = "app/views/#{name}.html.erb"
-      e = ERB.new(File.read template)
+      e = ERB.new(File.read(template))
       e.result(b)
     end
   end
