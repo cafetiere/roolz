@@ -46,7 +46,6 @@ module R00lz
     attr_reader :env
 
     def initialize(env)
-      STDERR.puts env.to_json
       @env = env
     end
 
