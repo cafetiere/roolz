@@ -2,6 +2,7 @@
 
 require 'r00lz/version'
 require 'erb'
+require 'json'
 
 module R00lz
   class App
@@ -45,6 +46,7 @@ module R00lz
     attr_reader :env
 
     def initialize(env)
+      STDERR.puts env.to_json
       @env = env
     end
 
