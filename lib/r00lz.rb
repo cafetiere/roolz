@@ -48,6 +48,14 @@ module R00lz
       @env = env
     end
 
+    def request
+      @request ||= Rack::Request.new(@env)
+    end
+
+    def params
+      request.params
+    end
+
     def render(name, b = binding)
       template = "app/views/#{name}.html.erb"
       e = ERB.new(File.read(template))
